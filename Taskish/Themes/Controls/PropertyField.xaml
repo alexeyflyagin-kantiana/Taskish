@@ -1,0 +1,142 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Taskish.Controls">
+
+    <Style TargetType="local:PropertyField">
+        <Setter Property="Text" Value="-"/>
+        <Setter Property="Foreground" Value="{StaticResource OnSurfaceBrush}"/>
+        <Setter Property="FontFamily" Value="Inter"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="ErrorIconData" Value="{StaticResource ErrorSmallIcon}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:PropertyField">
+                    <Border
+                        x:Name="border"
+                        Background="{StaticResource OnSurfaceBrush4}"
+                        CornerRadius="{StaticResource Corner8}"
+                        BorderBrush="{StaticResource PrimaryBrush}"
+                        BorderThickness="0">
+
+                        <Grid>
+                            <Grid.Margin>
+                                <Thickness
+                                    Left="{StaticResource Spacing8}"
+                                    Top="{StaticResource Spacing4}"
+                                    Right="{StaticResource Spacing8}"
+                                    Bottom="{StaticResource Spacing4}"/>
+                            </Grid.Margin>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                x:Name="textBlock"
+                                Grid.Column="0"
+                                Text="{TemplateBinding Text}"
+                                Style="{StaticResource LabelLarge}"
+                                Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                Grid.Column="0"
+                                Visibility="Collapsed"/>
+
+                            <Viewbox
+                                x:Name="errorIcon"
+                                Grid.Column="2"
+                                Width="14" Height="14"
+                                ToolTip="{TemplateBinding ErrorText}"
+                                Visibility="Collapsed">
+                                <Viewbox.Margin>
+                                    <Thickness Left="{StaticResource Spacing8}"/>
+                                </Viewbox.Margin>
+                                <Canvas Width="14" Height="14" Background="Transparent">
+                                    <Path
+                                        Data="{TemplateBinding ErrorIconData}"
+                                        Fill="{StaticResource ErrorBrush}"/>
+                                </Canvas>
+                            </Viewbox>
+
+                            <Viewbox
+                                x:Name="stateIcon"
+                                Grid.Column="1"
+                                Width="14" Height="14"
+                                Visibility="Collapsed">
+                                <Viewbox.Margin>
+                                    <Thickness Left="{StaticResource Spacing8}"/>
+                                </Viewbox.Margin>
+                                <Canvas Width="14" Height="14">
+                                    <Path
+                                        x:Name="stateIconPath"
+                                        Data="{StaticResource EditSquareSmallIcon}"
+                                        Fill="{StaticResource OnSurfaceBrush}"
+                                        Opacity="{StaticResource Opacity-40}"/>
+                                </Canvas>
+                            </Viewbox>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource OnSurfaceBrush8}"/>
+                            <Setter TargetName="stateIcon" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="border" Property="BorderThickness" Value="{StaticResource Stroke2Thickness}"/>
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource OnPrimaryBrush8}"/>
+                            <Setter TargetName="textBlock" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="PART_ContentHost" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="errorIcon" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="stateIcon" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Focusable" Value="False"/>
+                            <Setter TargetName="textBlock" Property="Foreground" Value="{StaticResource OnSurfaceBrush}"/>
+                            <Setter TargetName="textBlock" Property="Opacity" Value="{StaticResource Opacity-40}"/>
+                            <Setter TargetName="stateIconPath" Property="Data" Value="{StaticResource LockSmallIcon}"/>
+                            <Setter TargetName="stateIcon" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsError" Value="True">
+                            <Setter TargetName="errorIcon" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource ErrorBrush10}"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsError" Value="True"/>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource ErrorBrush16}"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsError" Value="True"/>
+                                <Condition Property="IsFocused" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource ErrorBrush8}"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource ErrorBrush}"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="{StaticResource Stroke2Thickness}"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsError" Value="True"/>
+                                <Condition Property="IsEnabled" Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="errorIcon" Property="Grid.Column" Value="1"/>
+                                <Setter TargetName="stateIcon" Property="Grid.Column" Value="2"/>
+                                <Setter TargetName="stateIcon" Property="Visibility" Value="Visible"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Themes/Brushes/Base.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
+    <SolidColorBrush x:Key="Contributions0" Color="{StaticResource Primary}" Opacity="0"/>
+    <SolidColorBrush x:Key="ContributionsMin" Color="{StaticResource Primary}" Opacity="0.3"/>
+    <SolidColorBrush x:Key="Contributions25" Color="{StaticResource Primary}" Opacity="0.45"/>
+    <SolidColorBrush x:Key="Contributions50" Color="{StaticResource Primary}" Opacity="0.60"/>
+    <SolidColorBrush x:Key="Contributions75" Color="{StaticResource Primary}" Opacity="0.80"/>
+    <SolidColorBrush x:Key="Contributions100" Color="{StaticResource Primary}"/>
+</ResourceDictionary>

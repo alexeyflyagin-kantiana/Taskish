@@ -1,0 +1,68 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Taskish.Controls"
+    xmlns:res="clr-namespace:Taskish.Resources">
+
+
+    <Style TargetType="local:DoneButton">
+        <Setter Property="Background" Value="{StaticResource OnSurfaceBrush4}"/>
+        <Setter Property="Foreground" Value="{StaticResource OnSurfaceVariantBrush}"/>
+        <Setter Property="Text" Value="{x:Static res:Strings.CheckAsDone}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:DoneButton">
+                    <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="{StaticResource Corner12}"
+                        Height="34">
+                        <Border.Padding>
+                            <Thickness 
+                                Left="{StaticResource Spacing8}"
+                                Right="{StaticResource Spacing12}"/>
+                        </Border.Padding>
+                        <StackPanel Orientation="Horizontal">
+                            <Viewbox Width="14" Height="14">
+                                <Viewbox.Margin>
+                                    <Thickness Right="{StaticResource Spacing4}"/>
+                                </Viewbox.Margin>
+                                <Canvas Width="24" Height="24">
+                                    <Path Data="{TemplateBinding IconData}" Fill="{TemplateBinding Foreground}"/>
+                                </Canvas>
+                            </Viewbox>
+                            <TextBlock
+                                Text="{TemplateBinding Text}" 
+                                Style="{StaticResource LabelMedium}"
+                                Foreground="{TemplateBinding Foreground}"
+                                VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsCompleted" Value="True">
+                            <Setter Property="Background" Value="{StaticResource PrimaryBrush10}"/>
+                            <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter Property="Text" Value="{x:Static res:Strings.Done}"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsCompleted" Value="False"/>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource OnSurfaceBrush8}"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsCompleted" Value="True"/>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryBrush16}"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

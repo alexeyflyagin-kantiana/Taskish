@@ -1,0 +1,30 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="ToolTip">
+        <Setter Property="Background" Value="{StaticResource OnSurfaceBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource SurfaceBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource OnSurfaceVariantBrush}"/>
+        <Setter Property="BorderThickness" Value="{StaticResource Stroke0_5Thickness}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{StaticResource Corner4}">
+                        <Border.Padding>
+                            <Thickness
+                                Left="{StaticResource Spacing8}"
+                                Top="{StaticResource Spacing4}"
+                                Right="{StaticResource Spacing8}"
+                                Bottom="{StaticResource Spacing4}"/>
+                        </Border.Padding>
+                        <ContentPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

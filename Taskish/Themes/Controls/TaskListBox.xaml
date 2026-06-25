@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Taskish.Controls">
+
+    <Style TargetType="controls:TaskListBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:TaskListBox">
+                    <ScrollViewer>
+                        <ItemsPresenter>
+                            <ItemsPresenter.Margin>
+                                <Thickness
+                                    Left="{StaticResource Spacing8}"
+                                    Right="{StaticResource Spacing8}"
+                                    Bottom="{StaticResource Spacing80}"/>
+                            </ItemsPresenter.Margin>
+                        </ItemsPresenter>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

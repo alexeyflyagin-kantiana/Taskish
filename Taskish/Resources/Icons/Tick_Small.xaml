@@ -1,0 +1,6 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Geometry x:Key="TickSmallIcon">M 9.57607 4.57652 C 9.81038 4.34221 10.1904 4.34221 10.4247 4.57652 C 10.6584 4.81073 10.6584 5.18997 10.4247 5.42418 L 6.4247 9.42418 C 6.19041 9.6584 5.81038 9.65839 5.57607 9.42418 L 3.57607 7.42418 C 3.34171 7.18993 3.34086 6.80991 3.57509 6.57555 C 3.80926 6.34127 4.18934 6.34156 4.42372 6.57555 L 5.99989 8.15074 L 9.57607 4.57652 Z</Geometry>
+
+</ResourceDictionary>

@@ -1,0 +1,6 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Geometry x:Key="CaretDownIcon">M 15.4697 9.46967 C 15.7626 9.17678 16.2373 9.17678 16.5302 9.46967 C 16.8231 9.76256 16.8231 10.2373 16.5302 10.5302 L 12.5302 14.5302 C 12.2373 14.8231 11.7626 14.8231 11.4697 14.5302 L 7.46967 10.5302 C 7.17678 10.2373 7.17678 9.76256 7.46967 9.46967 C 7.76256 9.17678 8.23732 9.17678 8.53022 9.46967 L 11.9999 12.9394 L 15.4697 9.46967 Z</Geometry>
+
+</ResourceDictionary>

@@ -1,0 +1,50 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Taskish.Controls">
+
+    <Style TargetType="local:Badge">
+        <Setter Property="Background" Value="{StaticResource OnSurfaceBrush10}"/>
+        <Setter Property="Foreground" Value="{StaticResource OnSurfaceVariantBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:Badge">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="{StaticResource Corner4}"
+                        ToolTip="{TemplateBinding ToolTip}">
+                        <StackPanel Orientation="Horizontal">
+                            <Viewbox Width="10" Height="10" VerticalAlignment="Center">
+                                <Canvas Width="14" Height="14">
+                                    <Path Data="{TemplateBinding IconData}" Fill="{TemplateBinding Foreground}"/>
+                                </Canvas>
+                                <Viewbox.Margin>
+                                    <Thickness Left="{StaticResource Spacing4}"/>
+                                </Viewbox.Margin>
+                            </Viewbox>
+                            <TextBlock
+                                x:Name="label"
+                                Text="{TemplateBinding Text}" 
+                                Style="{StaticResource LabelSmall}"
+                                Foreground="{TemplateBinding Foreground}"
+                                VerticalAlignment="Center">
+                                <TextBlock.Margin>
+                                    <Thickness 
+                                        Right="{StaticResource Spacing4}"
+                                        Left="{StaticResource Spacing4}"/>
+                                </TextBlock.Margin>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsCrossed" Value="True">
+                            <Setter TargetName="label" Property="TextDecorations" Value="Strikethrough"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

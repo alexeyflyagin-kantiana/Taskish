@@ -1,0 +1,54 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Taskish.Controls">
+
+    <Style TargetType="local:CheckBox">
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:CheckBox">
+                    <Grid Width="34" Height="34">
+                        <Ellipse
+                            x:Name="stateLayer"
+                            Fill="Transparent"/>
+
+                        <Ellipse
+                            x:Name="background"
+                            Width="18" Height="18"
+                            Fill="Transparent"
+                            Stroke="{StaticResource OnSurfaceVariantBrush}"
+                            StrokeThickness="{StaticResource Stroke1}"/>
+
+                        <Viewbox Width="22" Height="22">
+                            <Canvas Width="24" Height="24">
+                                <Path
+                                    x:Name="checkmark"
+                                    Data="{StaticResource TickIcon}"
+                                    Fill="{StaticResource OnPrimaryBrush}"
+                                    Opacity="0"/>
+                            </Canvas>
+                        </Viewbox>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsChecked" Value="False"/>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="checkmark" Property="Fill" Value="{StaticResource OnSurfaceVariantBrush}"/>
+                                <Setter TargetName="checkmark" Property="Opacity" Value="{StaticResource Opacity-30}"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="background" Property="Fill" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter TargetName="background" Property="StrokeThickness" Value="0"/>
+                            <Setter TargetName="checkmark" Property="Opacity" Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

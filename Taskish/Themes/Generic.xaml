@@ -1,0 +1,28 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Taskish.Controls">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/IconButton.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/IconButtonSurface.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/IconButtonSmallSurface.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/IconButtonSmallPrimary.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/IconButtonError.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/DoneButton.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/Button.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/ButtonPrimary.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/CheckBox.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/Badge.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/PropertyField.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/DateTimePropertyField.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/IntPropertyField.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/TaskCard.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/TaskListBox.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/TaskTitleTextBox.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/DescriptionTextBox.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/ScrollBar.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/ToolTip.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/HeatMap.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

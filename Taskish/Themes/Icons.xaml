@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Resources/Icons/Add.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Archive.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Archive_Fill.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/CaretDown.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/CaretUp.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/CheckCircle.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/CheckCircle_Filled.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Close.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Calendar.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Calendar_Add.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Calendar_Done.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Delete.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Indeterminate.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Maximize.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Minimize.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Profile.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Tick.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Calendar_Small.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Calendar_Small_Attention.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Close_Small.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Copy_Small.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Edit_Small.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Edit_Square_Small.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Error_Small.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Lock_Small.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Tick_Small.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Weight_Small.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Weight.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Edit.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Info.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

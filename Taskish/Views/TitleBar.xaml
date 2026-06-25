@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="Taskish.Views.TitleBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:Taskish.Controls"
+             xmlns:res="clr-namespace:Taskish.Resources"
+             MinHeight="48">
+    
+    <Grid Grid.Row="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock
+            Grid.Column="0"
+            Text="{x:Static res:Strings.AppName}"
+            Style="{StaticResource LabelMedium}"
+            Foreground="{StaticResource OnSurfaceVariantBrush}"
+            VerticalAlignment="Center"
+            FontWeight="Bold">
+            <TextBlock.Margin>
+                <Thickness Left="{StaticResource Spacing20}"/>
+            </TextBlock.Margin>
+        </TextBlock>
+        
+        <StackPanel
+            Grid.Column="1"
+            Orientation="Vertical"
+            VerticalAlignment="Center">
+            <StackPanel.Margin>
+                <Thickness
+                    Right="{StaticResource Spacing24}"
+                    Left="{StaticResource Spacing24}"/>
+            </StackPanel.Margin>
+            
+            <TextBlock
+                x:Name="TimeTextBlock"
+                Text="12:24"
+                Style="{StaticResource LabelMedium}"
+                Foreground="{StaticResource OnSurfaceBrush}"
+                FontWeight="Bold"
+                HorizontalAlignment="Center"/>
+            
+            <TextBlock
+                x:Name="DateTextBlock"
+                Text="Вт, 20 июня 2026"
+                Style="{StaticResource LabelMedium}"
+                Foreground="{StaticResource OnSurfaceVariantBrush}"
+                TextAlignment="Center"/>
+        </StackPanel>
+        
+        <StackPanel
+            Grid.Column="2"
+            Orientation="Horizontal"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right">
+            
+            <controls:IconButton
+                IconData="{StaticResource MinimizeIcon}"
+                WindowChrome.IsHitTestVisibleInChrome="True"
+                Click="MinimizeButton_Click">
+                <controls:IconButton.Margin>
+                    <Thickness Right="{StaticResource Spacing8}"/>
+                </controls:IconButton.Margin>
+            </controls:IconButton>
+            
+            <controls:IconButton
+                IconData="{StaticResource MaximizeIcon}"
+                WindowChrome.IsHitTestVisibleInChrome="True"
+                Click="MaximizeButton_Click">
+                <controls:IconButton.Margin>
+                    <Thickness Right="{StaticResource Spacing8}"/>
+                </controls:IconButton.Margin>
+            </controls:IconButton>
+            
+            <controls:IconButton
+                IconData="{StaticResource CloseIcon}"
+                WindowChrome.IsHitTestVisibleInChrome="True"
+                Click="CloseButton_Click">
+                <controls:IconButton.Margin>
+                    <Thickness Right="{StaticResource Spacing8}"/>
+                </controls:IconButton.Margin>
+            </controls:IconButton>
+        </StackPanel>
+    </Grid>
+
+</UserControl>

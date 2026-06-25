@@ -1,0 +1,150 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Taskish.Controls">
+
+    <Style TargetType="local:TaskCard">
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Title" Value="Run sprint retrospective and define improvement plan"/>
+        <Setter Property="Description" Value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."/>
+        <Setter Property="StoryPoints" Value="10"/>
+        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:TaskCard">
+                    <Border
+                        Background="{StaticResource SurfaceContainerLowestBrush}"
+                        CornerRadius="{StaticResource Corner8}">
+                        <Border.Margin>
+                            <Thickness Bottom="{StaticResource Spacing4}"/>
+                        </Border.Margin>
+
+                        <Border
+                            x:Name="stateLayer"
+                            Background="Transparent"
+                            CornerRadius="{StaticResource Corner8}">
+                            <Border.Padding>
+                                <Thickness
+                                    Left="{StaticResource Spacing8}"
+                                    Top="{StaticResource Spacing8}"
+                                    Right="{StaticResource Spacing8}"
+                                    Bottom="{StaticResource Spacing8}"/>
+                            </Border.Padding>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="{StaticResource Gap8}"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <local:CheckBox
+                                    x:Name="checkbox"
+                                    Grid.Column="0"
+                                    VerticalAlignment="Center"  
+                                    IsChecked="{Binding IsCompleted, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                                    Command="{Binding DataContext.ToggleCompleteCommand, RelativeSource={RelativeSource AncestorType=local:TaskListBox}}"
+                                    CommandParameter="{Binding}"/>
+
+                                <Grid
+                                    x:Name="infoGroup"
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="{StaticResource Gap4}"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock
+                                        x:Name="titlePlaceholder"
+                                        Grid.Row="0"
+                                        Style="{StaticResource LabelLarge}"
+                                        Foreground="{StaticResource OnSurfaceBrush}"
+                                        Opacity="{StaticResource Opacity-40}"
+                                        Text="Без названия"
+                                        Visibility="Collapsed"
+                                        TextTrimming="CharacterEllipsis"/>
+
+                                    <TextBlock
+                                        x:Name="title"
+                                        Grid.Row="0"
+                                        Style="{StaticResource LabelLarge}"
+                                        Foreground="{StaticResource OnSurfaceBrush}"
+                                        Text="{TemplateBinding Title}"
+                                        TextTrimming="CharacterEllipsis"/>
+
+                                    <Grid
+                                        Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="{StaticResource Gap4}"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="{StaticResource Gap4}"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+
+                                        <TextBlock
+                                            x:Name="description"
+                                            Grid.Column="0"
+                                            Style="{StaticResource BodySmall}"
+                                            Foreground="{StaticResource OnSurfaceBrush}"
+                                            Text="{TemplateBinding Description}"
+                                            Opacity="{StaticResource Opacity-40}"
+                                            TextWrapping="NoWrap"
+                                            TextTrimming="CharacterEllipsis">
+                                        </TextBlock>
+
+                                        <local:Badge
+                                            x:Name="storyPointsBadge"
+                                            Grid.Column="4"
+                                            IconData="{StaticResource WeightSmallIcon}"
+                                            Text="{Binding StoryPoints, RelativeSource={RelativeSource TemplatedParent}}"/>
+
+                                        <local:Badge
+                                            x:Name="deadlineBadge"
+                                            Grid.Column="2"
+                                            IconData="{StaticResource CalendarSmallIcon}"
+                                            Text="{Binding DeadlineText, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Border>
+                    
+                    <ControlTemplate.Triggers>
+                        
+                        <Trigger Property="Title" Value="">
+                            <Setter TargetName="titlePlaceholder" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="title" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+
+                        <Trigger Property="IsCompleted" Value="True">
+                            <Setter TargetName="title" Property="TextDecorations" Value="Strikethrough"/>
+                            <Setter TargetName="infoGroup" Property="Opacity" Value="{StaticResource Opacity-60}"/>
+                        </Trigger>
+
+                        <Trigger Property="DeadlineState" Value="Hidden">
+                            <Setter TargetName="deadlineBadge" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+
+                        <Trigger Property="DeadlineState" Value="Overdue">
+                            <Setter TargetName="deadlineBadge" Property="Background" Value="{StaticResource ErrorBrush16}"/>
+                            <Setter TargetName="deadlineBadge" Property="Foreground" Value="{StaticResource ErrorBrush}"/>
+                            <Setter TargetName="deadlineBadge" Property="IconData" Value="{StaticResource CalendarSmallAttentionIcon}"/>
+                        </Trigger>
+
+                        <Trigger Property="DeadlineState" Value="DoneOnTime">
+                            <Setter TargetName="deadlineBadge" Property="IsCrossed" Value="True"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="stateLayer" Property="Background" Value="{StaticResource OnSurfaceBrush8}"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

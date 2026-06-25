@@ -1,0 +1,207 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Taskish.Controls"
+                    xmlns:res="clr-namespace:Taskish.Resources">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Taskish;component/Themes/Theme.xaml"/>
+        <ResourceDictionary Source="/Taskish;component/Themes/Controls/IconButtonSmallSurface.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="local:DescriptionTextBox">
+        <Setter Property="Foreground" Value="{StaticResource OnSurfaceBrush}"/>
+        <Setter Property="FontFamily" Value="Inter"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Regular"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="AcceptsReturn" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:DescriptionTextBox">
+                    <Border
+                        x:Name="border"
+                        Background="Transparent"
+                        CornerRadius="{StaticResource Corner8}"
+                        BorderThickness="0"
+                        BorderBrush="{StaticResource PrimaryBrush}">
+                        <Border.Padding>
+                            <Thickness
+                                Left="{StaticResource Spacing12}"
+                                Top="{StaticResource Spacing8}"
+                                Right="{StaticResource Spacing12}"
+                                Bottom="{StaticResource Spacing8}"/>
+                        </Border.Padding>
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="{StaticResource Gap8}"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Viewbox Grid.Column="0" Width="18" Height="18" VerticalAlignment="Center">
+                                    <Canvas Width="24" Height="24">
+                                        <Path
+                                            x:Name="labelIcon"
+                                            Data="{TemplateBinding IconData}"
+                                            Fill="{StaticResource OnSurfaceVariantBrush}"/>
+                                    </Canvas>
+                                </Viewbox>
+
+                                <TextBlock
+                                    x:Name="label"
+                                    Grid.Column="1"
+                                    Text="{TemplateBinding Label}"
+                                    Style="{StaticResource LabelLarge}"
+                                    Foreground="{StaticResource OnSurfaceVariantBrush}"
+                                    VerticalAlignment="Center">
+                                    <TextBlock.Margin>
+                                        <Thickness Left="{StaticResource Spacing4}"/>
+                                    </TextBlock.Margin>
+                                </TextBlock>
+
+                                <Grid
+                                    x:Name="actionsGroup"
+                                    Grid.Column="2"
+                                    Visibility="Hidden"
+                                    VerticalAlignment="Center">
+                                    <Grid.Margin>
+                                        <Thickness Left="{StaticResource Spacing8}"/>
+                                    </Grid.Margin>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="{StaticResource Gap4}"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="{StaticResource Gap4}"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Viewbox
+                                        x:Name="stateIcon"
+                                        Grid.Column="1"
+                                        Width="14" Height="14"
+                                        VerticalAlignment="Center">
+                                        <Canvas Width="14" Height="14">
+                                            <Path
+                                                x:Name="stateIconData"
+                                                Data="{StaticResource EditSquareSmallIcon}"
+                                                Fill="{StaticResource OnSurfaceBrush}"
+                                                Opacity="{StaticResource Opacity-40}"/>
+                                        </Canvas>
+                                    </Viewbox>
+
+                                    <local:IconButton
+                                        x:Name="copyBtn"
+                                        Grid.Column="3"
+                                        Style="{StaticResource IconButtonSmallSurface}"
+                                        IconData="{StaticResource CopySmallIcon}"/>
+                                </Grid>
+                            </Grid>
+
+                            <TextBlock
+                                x:Name="textBlock"
+                                Grid.Row="2"
+                                Text="{TemplateBinding Text}"
+                                Style="{StaticResource BodyMedium}"
+                                Foreground="{StaticResource OnSurfaceVariantBrush}"
+                                TextWrapping="Wrap"/>
+
+                            <TextBlock
+                                x:Name="placeholder"
+                                Grid.Row="2"
+                                Visibility="Collapsed"
+                                Text="{x:Static res:Strings.DescriptionPlaceholder}"
+                                Style="{StaticResource BodyMedium}"
+                                Foreground="{StaticResource OnSurfaceBrush}"
+                                Opacity="{StaticResource Opacity-40}"
+                                TextWrapping="Wrap"/>
+
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                Grid.Row="2"
+                                Visibility="Collapsed"/>
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Text" Value="">
+                            <Setter TargetName="placeholder" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition SourceName="copyBtn" Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter Property="Focusable" Value="False"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+
+                        <!-- Hover с текстом — показываем кнопки -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource OnSurfaceBrush4}"/>
+                                <Setter TargetName="actionsGroup" Property="Visibility" Value="Visible"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="Text" Value=""/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource OnSurfaceBrush4}"/>
+                                <Setter TargetName="actionsGroup" Property="Visibility" Value="Hidden"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="PART_ContentHost" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="textBlock" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="labelIcon" Property="Fill" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter TargetName="label" Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryBrush8}"/>
+                            <Setter TargetName="border" Property="BorderThickness" Value="{StaticResource Stroke2Thickness}"/>
+                            <Setter TargetName="actionsGroup" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+
+                        <Trigger Property="IsBlocked" Value="True">
+                            <Setter Property="Focusable" Value="False"/>
+                            <Setter TargetName="stateIconData" Property="Data" Value="{StaticResource LockSmallIcon}"/>
+                            <Setter TargetName="actionsGroup" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="label" Property="Foreground" Value="{StaticResource OnSurfaceVariantBrush}"/>
+                            <Setter TargetName="textBlock" Property="Foreground" Value="{StaticResource OnSurfaceBrush}"/>
+                            <Setter TargetName="textBlock" Property="Opacity" Value="{StaticResource Opacity-40}"/>
+                            <Setter TargetName="stateIcon" Property="Grid.Column" Value="3"/>
+                            <Setter TargetName="copyBtn" Property="Grid.Column" Value="1"/>
+                            <Setter TargetName="actionsGroup" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsBlocked" Value="True"/>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource OnSurfaceBrush8}"/>
+                                <Setter TargetName="actionsGroup" Property="Visibility" Value="Visible"/>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

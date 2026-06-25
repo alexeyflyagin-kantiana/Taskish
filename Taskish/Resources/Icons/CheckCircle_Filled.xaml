@@ -1,0 +1,6 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Geometry x:Key="CheckCircleFilledIcon">M 15.993 10.222 L 11.375 14.84 C 11.228 14.987 11.037 15.06 10.845 15.06 C 10.652 15.06 10.461 14.987 10.314 14.84 L 8.005 12.531 C 7.712 12.238 7.712 11.763 8.005 11.47 C 8.298 11.177 8.772 11.177 9.065 11.47 L 10.845 13.249 L 14.932 9.161 C 15.225 8.868 15.7 8.868 15.993 9.161 C 16.286 9.454 16.286 9.929 15.993 10.222 Z M 12 2.5 C 6.762 2.5 2.5 6.762 2.5 12 C 2.5 17.239 6.762 21.5 12 21.5 C 17.238 21.5 21.5 17.239 21.5 12 C 21.5 6.762 17.238 2.5 12 2.5 Z</Geometry>
+
+</ResourceDictionary>

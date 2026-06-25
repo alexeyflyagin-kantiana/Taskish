@@ -1,0 +1,30 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <sys:Double x:Key="Spacing2">2</sys:Double>
+    <sys:Double x:Key="Spacing4">4</sys:Double>
+    <sys:Double x:Key="Spacing8">8</sys:Double>
+    <sys:Double x:Key="Spacing12">12</sys:Double>
+    <sys:Double x:Key="Spacing16">16</sys:Double>
+    <sys:Double x:Key="Spacing20">20</sys:Double>
+    <sys:Double x:Key="Spacing24">24</sys:Double>
+    <sys:Double x:Key="Spacing32">32</sys:Double>
+    <sys:Double x:Key="Spacing40">40</sys:Double>
+    <sys:Double x:Key="Spacing48">48</sys:Double>
+    <sys:Double x:Key="Spacing64">64</sys:Double>
+    <sys:Double x:Key="Spacing80">80</sys:Double>
+
+    <GridLength x:Key="Gap2">2</GridLength>
+    <GridLength x:Key="Gap4">4</GridLength>
+    <GridLength x:Key="Gap8">8</GridLength>
+    <GridLength x:Key="Gap12">12</GridLength>
+    <GridLength x:Key="Gap16">16</GridLength>
+    <GridLength x:Key="Gap20">20</GridLength>
+    <GridLength x:Key="Gap24">24</GridLength>
+    <GridLength x:Key="Gap32">32</GridLength>
+    <GridLength x:Key="Gap40">40</GridLength>
+    <GridLength x:Key="Gap48">48</GridLength>
+    <GridLength x:Key="Gap64">64</GridLength>
+    <GridLength x:Key="Gap80">80</GridLength>
+</ResourceDictionary>

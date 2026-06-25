@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Themes/Brushes/Base.xaml"/>
+        <ResourceDictionary Source="/Themes/Brushes/StateLayers.xaml"/>
+        <ResourceDictionary Source="/Themes/Brushes/ContributionBrushes.xaml"/>
+        <ResourceDictionary Source="/Themes/Tokens/Corners.xaml"/>
+        <ResourceDictionary Source="/Themes/Tokens/Opacities.xaml"/>
+        <ResourceDictionary Source="/Themes/Tokens/Spacings.xaml"/>
+        <ResourceDictionary Source="/Themes/Tokens/Strokes.xaml"/>
+        <ResourceDictionary Source="/Themes/Typography.xaml"/>
+        <ResourceDictionary Source="/Themes/Icons.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>
