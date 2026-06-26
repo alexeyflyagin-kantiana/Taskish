@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
 using Taskish.Commands;
+using Taskish.Controls;
 using Taskish.Models;
 using Taskish.Services;
 
@@ -18,6 +19,8 @@ namespace Taskish.ViewModels
         public ListCollectionView TasksView { get; }
 
         public string TaskCounter => $"({_tasks.Count(t => !t.IsCompleted)}/{_tasks.Count})";
+        public RelayCommand AddTaskCommand { get; }
+        public RelayCommand<TaskItem> ToggleCompleteCommand { get; }
         public RelayCommand<TaskItem> TaskSelectedCommand { get; }
 
         public TaskListViewModel(TaskService taskService, Action<TaskItem> onTaskSelected, Action onRefresh)
@@ -33,6 +36,8 @@ namespace Taskish.ViewModels
             TasksView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(TaskItem.IsCompleted)));
             _tasks.CollectionChanged += (_, _) => OnPropertyChanged(nameof(TaskCounter));
 
+            AddTaskCommand = new RelayCommand(AddTask);
+            ToggleCompleteCommand = new RelayCommand<TaskItem>(ToggleComplete);
             TaskSelectedCommand = new RelayCommand<TaskItem>(t => _onTaskSelected(t!));
 
             TaskCard.MinuteTick += (_, _) => TasksView.Refresh();
@@ -40,11 +45,30 @@ namespace Taskish.ViewModels
             LoadTasks();
         }
 
+        private void ToggleComplete(TaskItem task)
+        {
+            if (task.IsCompleted)
+                _taskService.Uncomplete(task.Id);
+            else
+                _taskService.Complete(task.Id);
+
+            TasksView.Refresh();
+            OnPropertyChanged(nameof(TaskCounter));
+        }
+
         private void LoadTasks()
         {
             var tasks = _taskService.GetAll();
             foreach (var task in tasks)
                 _tasks.Add(task);
+        }
+
+        private void AddTask()
+        {
+            var task = new TaskItem { Title = string.Empty };
+            _taskService.Add(task);
+            _tasks.Add(task);
+            _onTaskSelected(task);
         }
 
         public void RemoveTask(TaskItem task) => _tasks.Remove(task);
@@ -90,4 +114,3 @@ namespace Taskish.ViewModels
         }
     }
 }
-
