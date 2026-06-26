@@ -35,6 +35,8 @@ namespace Taskish.ViewModels
 
             TaskSelectedCommand = new RelayCommand<TaskItem>(t => _onTaskSelected(t!));
 
+            TaskCard.MinuteTick += (_, _) => TasksView.Refresh();
+
             LoadTasks();
         }
 
@@ -88,3 +90,4 @@ namespace Taskish.ViewModels
         }
     }
 }
+
