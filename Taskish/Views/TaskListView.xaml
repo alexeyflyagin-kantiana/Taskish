@@ -1,0 +1,110 @@
+<UserControl x:Class="Taskish.Views.TaskListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Taskish.Views"
+             xmlns:controls="clr-namespace:Taskish.Controls"
+             xmlns:res="clr-namespace:Taskish.Resources">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid
+            Grid.Row="0">
+            <Grid.Margin>
+                <Thickness
+                    Left="{StaticResource Spacing8}"
+                    Top="{StaticResource Spacing8}"
+                    Right="{StaticResource Spacing8}"
+                    Bottom="{StaticResource Spacing8}"/>
+            </Grid.Margin>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="{StaticResource Gap24}"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid
+                Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{StaticResource Gap8}"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="{StaticResource Gap4}"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+            
+                <TextBlock
+                    Grid.Column="1"
+                    Style="{StaticResource TitleMedium}"
+                    Foreground="{StaticResource OnSurfaceBrush}"
+                    Text="{x:Static res:Strings.AllTasks}"
+                    VerticalAlignment="Center"/>
+
+
+                <TextBlock
+                    Grid.Column="3"
+                    Style="{StaticResource TitleMedium}"
+                    Foreground="{StaticResource OnSurfaceVariantBrush}"
+                    Text="{Binding TaskCounter}"
+                    VerticalAlignment="Center"/>
+            </Grid>
+
+
+            <controls:IconButton
+                Grid.Column="2"
+                IconData="{StaticResource AddIcon}"
+                Command="{Binding AddTaskCommand}"/>
+        </Grid>
+
+        <controls:TaskListBox
+            Grid.Row="1"
+            ItemsSource="{Binding TasksView}"
+            TaskSelectedCommand="{Binding TaskSelectedCommand}"
+            Background="Transparent"
+            BorderThickness="0"
+            HorizontalContentAlignment="Stretch"
+            ScrollViewer.CanContentScroll="False"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <controls:TaskListBox.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="GroupItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="GroupItem">
+                                        <StackPanel>
+                                            <Border
+                                                x:Name="separator"
+                                                Visibility="Collapsed">
+                                                <Border.Margin>
+                                                    <Thickness
+                                                        Left="{StaticResource Spacing8}"
+                                                        Top="{StaticResource Spacing8}"
+                                                        Right="{StaticResource Spacing8}"
+                                                        Bottom="{StaticResource Spacing8}"/>
+                                                </Border.Margin>
+                                                <TextBlock
+                                                    Style="{StaticResource LabelMedium}"
+                                                    Foreground="{StaticResource OnSurfaceVariantBrush}"
+                                                    Text="{x:Static res:Strings.CompletedTasks_SectionTitle}">
+                                                </TextBlock>
+                                            </Border>
+                                            <ItemsPresenter/>
+                                        </StackPanel>
+                                        <ControlTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding Name}" Value="True">
+                                                <Setter TargetName="separator" Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </controls:TaskListBox.GroupStyle>
+        </controls:TaskListBox>
+    </Grid>
+</UserControl>
+
