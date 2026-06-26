@@ -1,0 +1,142 @@
+<UserControl x:Class="Taskish.Views.TaskDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:Taskish.Controls"
+             xmlns:local="clr-namespace:Taskish.Views"
+             xmlns:res="clr-namespace:Taskish.Resources">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.Margin>
+                <Thickness
+                    Left="{StaticResource Spacing8}"
+                    Top="{StaticResource Spacing8}"
+                    Right="{StaticResource Spacing8}"
+                    Bottom="{StaticResource Spacing8}"/>
+            </Grid.Margin>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource Gap4}"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <controls:DoneButton
+                Grid.Column="0"
+                Background="{StaticResource OnSurfaceBrush4}"
+                IconData="{StaticResource CheckCircleIcon}"
+                IsCompleted="{Binding IsCompleted}"
+                Command="{Binding CompleteCommand}"/>
+
+            <controls:IconButton
+                Grid.Column="2"
+                Style="{StaticResource IconButtonError}"
+                IconData="{StaticResource DeleteIcon}"
+                Command="{Binding DeleteCommand}"/>
+
+            <controls:IconButton
+                Grid.Column="4"
+                Style="{StaticResource IconButtonSurface}"
+                IconData="{StaticResource CloseIcon}"
+                Command="{Binding CloseCommand}"/>
+        </Grid>
+        <ScrollViewer Grid.Row="1">
+            <ScrollViewer.Padding>
+                <Thickness
+                    Left="{StaticResource Spacing8}"
+                    Right="{StaticResource Spacing4}"/>
+            </ScrollViewer.Padding>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="{StaticResource Gap12}"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="{StaticResource Gap12}"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="{StaticResource Gap80}"/>
+                </Grid.RowDefinitions>
+
+                <controls:TaskTitleTextBox
+                    x:Name="TitleTextBox"
+                    Grid.Row="0"
+                    Text="{Binding Title}"
+                    IsBlocked="{Binding IsCompleted}"/>
+
+                <Grid
+                    Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="{StaticResource Gap8}"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="{StaticResource Gap8}"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="{StaticResource Gap8}"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="{StaticResource Gap8}"/>
+                    </Grid.RowDefinitions>
+
+                    <local:PropertyFieldRow
+                        Grid.Row="0"
+                        IconData="{StaticResource CalendarAddIcon}"
+                        Label="{x:Static res:Strings.CreationDate_PropertyName}">
+                        <local:PropertyFieldRow.FieldContent>
+                            <controls:PropertyField
+                                IsEnabled="False"
+                                Text="{Binding CreatedAt, Mode=OneWay, StringFormat='dd.MM.yyyy, HH:mm'}"/>
+                        </local:PropertyFieldRow.FieldContent>
+                    </local:PropertyFieldRow>
+
+                    <local:PropertyFieldRow
+                        Grid.Row="2"
+                        IconData="{StaticResource CalendarDoneIcon}"
+                        Label="{x:Static res:Strings.DoneDate_PropertyName}">
+                        <local:PropertyFieldRow.FieldContent>
+                            <controls:PropertyField
+                                IsEnabled="False"
+                                Text="{Binding CompletedAt, Mode=OneWay, StringFormat='dd.MM.yyyy, HH:mm'}"/>
+                        </local:PropertyFieldRow.FieldContent>
+                    </local:PropertyFieldRow>
+
+                    <local:PropertyFieldRow
+                        Grid.Row="4"
+                        IconData="{StaticResource CalendarIcon}"
+                        Label="{x:Static res:Strings.Deadline_PropertyName}">
+                        <local:PropertyFieldRow.FieldContent>
+                            <controls:DateTimePropertyField
+                                IsBlocked="{Binding IsCompleted}"
+                                SelectedDateTime="{Binding Deadline}"
+                                MinDate="{Binding CreatedAt}"/>
+                        </local:PropertyFieldRow.FieldContent>
+                    </local:PropertyFieldRow>
+
+                    <local:PropertyFieldRow
+                        Grid.Row="6"
+                        IconData="{StaticResource WeightIcon}"
+                        Label="{x:Static res:Strings.StoryPoints_PropertyName}">
+                        <local:PropertyFieldRow.FieldContent>
+                            <controls:IntPropertyField
+                                IsBlocked="{Binding IsCompleted}"
+                                Value="{Binding StoryPoints}"
+                                MinValue="1"
+                                MaxValue="100"/>
+                        </local:PropertyFieldRow.FieldContent>
+                    </local:PropertyFieldRow>
+                </Grid>
+
+                <controls:DescriptionTextBox
+                    IconData="{StaticResource EditIcon}"
+                    Label="{x:Static res:Strings.Description_PropertyName}"
+                    Grid.Row="4"
+                    MaxCharacters="1000"
+                    IsBlocked="{Binding IsCompleted}"
+                    Text="{Binding Description}"/>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
