@@ -133,7 +133,7 @@ namespace Taskish.Controls
                 return;
             }
 
-            DeadlineText = Deadline.Value.ToString("dd.MM.yyyy");
+            DeadlineText = Deadline.Value.ToString("dd.MM.yyyy, HH:mm", CultureInfo.InvariantCulture);
 
             bool isOverdue = IsCompleted
                 ? CompletedAt.HasValue && CompletedAt.Value > Deadline.Value
