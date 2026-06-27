@@ -13,6 +13,9 @@ namespace Taskish.Controls
                 new FrameworkPropertyMetadata(typeof(DateTimePropertyField)));
         }
 
+        private static readonly string[] Formats =
+            ["dd.MM.yyyy, HH:mm", "dd.MM.yyyy HH:mm", "dd.MM.yyyy"];
+
         private string _lastValidText = string.Empty;
 
         public static readonly DependencyProperty SelectedDateTimeProperty =
@@ -25,6 +28,15 @@ namespace Taskish.Controls
         {
             get => (DateTime?)GetValue(SelectedDateTimeProperty);
             set => SetValue(SelectedDateTimeProperty, value);
+        }
+
+        public static readonly DependencyProperty MinDateProperty =
+            DependencyProperty.Register(nameof(MinDate), typeof(DateTime?), typeof(DateTimePropertyField));
+
+        public DateTime? MinDate
+        {
+            get => (DateTime?)GetValue(MinDateProperty);
+            set => SetValue(MinDateProperty, value);
         }
 
         private static void OnSelectedDateTimeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -59,8 +71,20 @@ namespace Taskish.Controls
                 return;
             }
 
-            if (!DateTime.TryParseExact(trimmed, "dd.MM.yyyy, HH:mm",
+            if (!DateTime.TryParseExact(trimmed, Formats,
                     CultureInfo.InvariantCulture, DateTimeStyles.None, out var dt))
+            {
+                Revert();
+                return;
+            }
+
+            if (dt.Year < 2000)
+            {
+                Revert();
+                return;
+            }
+
+            if (MinDate.HasValue && dt < MinDate.Value)
             {
                 Revert();
                 return;
