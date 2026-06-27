@@ -53,5 +53,17 @@ namespace Taskish.Controls
             if (d is PropertyField field)
                 field.IsEnabled = !(bool)e.NewValue;
         }
+
+        protected override void OnKeyDown(System.Windows.Input.KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                GetBindingExpression(TextProperty)?.UpdateSource();
+                MoveFocus(new System.Windows.Input.TraversalRequest(System.Windows.Input.FocusNavigationDirection.Next));
+                e.Handled = true;
+            }
+        }
     }
 }
+
