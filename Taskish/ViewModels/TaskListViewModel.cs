@@ -54,6 +54,7 @@ namespace Taskish.ViewModels
 
             TasksView.Refresh();
             OnPropertyChanged(nameof(TaskCounter));
+            _onRefresh();
         }
 
         private void LoadTasks()
@@ -114,3 +115,4 @@ namespace Taskish.ViewModels
         }
     }
 }
+
