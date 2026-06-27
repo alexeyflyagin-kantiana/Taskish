@@ -44,7 +44,8 @@ namespace Taskish.Controls
             if (e.AddedItems.Count > 0 && e.AddedItems[0] is TaskItem task)
             {
                 SelectedItem = null;
-                if (TaskSelectedCommand?.CanExecute(task) == true)
+                if (Mouse.LeftButton == MouseButtonState.Pressed &&
+                    TaskSelectedCommand?.CanExecute(task) == true)
                     TaskSelectedCommand.Execute(task);
             }
         }
