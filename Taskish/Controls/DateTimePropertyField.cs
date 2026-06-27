@@ -17,6 +17,7 @@ namespace Taskish.Controls
             ["dd.MM.yyyy, HH:mm", "dd.MM.yyyy HH:mm", "dd.MM.yyyy"];
 
         private string _lastValidText = string.Empty;
+        private bool _isUpdatingText;
 
         public static readonly DependencyProperty SelectedDateTimeProperty =
             DependencyProperty.Register(nameof(SelectedDateTime), typeof(DateTime?), typeof(DateTimePropertyField),
@@ -47,17 +48,41 @@ namespace Taskish.Controls
 
         private void SyncTextFromValue()
         {
+            _isUpdatingText = true;
             var text = SelectedDateTime.HasValue
                 ? SelectedDateTime.Value.ToString("dd.MM.yyyy, HH:mm")
                 : string.Empty;
             Text = text;
             _lastValidText = text;
+            _isUpdatingText = false;
         }
 
         protected override void OnLostFocus(RoutedEventArgs e)
         {
             base.OnLostFocus(e);
-            TryCommit();
+            if (!_isUpdatingText)
+                TryCommit();
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                TryCommit();
+                MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                e.Handled = true;
+                return;
+            }
+
+            if (e.Key == Key.Escape)
+            {
+                Revert();
+                MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                e.Handled = true;
+                return;
+            }
+
+            base.OnKeyDown(e);
         }
 
         private void TryCommit()
@@ -96,7 +121,11 @@ namespace Taskish.Controls
 
         private void Revert()
         {
+            _isUpdatingText = true;
             Text = _lastValidText;
+            _isUpdatingText = false;
         }
     }
 }
+
+
