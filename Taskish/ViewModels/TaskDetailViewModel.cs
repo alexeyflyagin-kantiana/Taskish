@@ -14,13 +14,53 @@ namespace Taskish.ViewModels
 
         private TaskItem _task;
 
-        public string Title => _task.Title;
-        public string Description => _task.Description;
-        public int StoryPoints => _task.StoryPoints;
+        public string Title
+        {
+            get => _task.Title;
+            set
+            {
+                if (_task.Title == value) return;
+                _task.Title = value;
+                _taskService.Update(_task);
+            }
+        }
+
+        public string Description
+        {
+            get => _task.Description;
+            set
+            {
+                if (_task.Description == value) return;
+                _task.Description = value;
+                _taskService.Update(_task);
+            }
+        }
+
+        public int StoryPoints
+        {
+            get => _task.StoryPoints;
+            set
+            {
+                if (_task.StoryPoints == value) return;
+                _task.StoryPoints = value;
+                _taskService.Update(_task);
+            }
+        }
+
         public bool IsCompleted => _task.IsCompleted;
         public DateTime CreatedAt => _task.CreatedAt;
         public DateTime? CompletedAt => _task.CompletedAt;
-        public DateTime? Deadline => _task.Deadline;
+
+        public DateTime? Deadline
+        {
+            get => _task.Deadline;
+            set
+            {
+                if (_task.Deadline == value) return;
+                _task.Deadline = value;
+                _taskService.Update(_task);
+            }
+        }
 
         public RelayCommand CompleteCommand { get; }
         public RelayCommand DeleteCommand { get; }
