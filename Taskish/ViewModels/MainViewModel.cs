@@ -36,7 +36,11 @@ namespace Taskish.ViewModels
             TaskListViewModel = new TaskListViewModel(taskService, OnTaskSelected, OnRefresh);
         }
 
-        private void OnRefresh() => TaskListViewModel.Refresh();
+        private void OnRefresh()
+        {
+            TaskListViewModel.Refresh();
+            _statisticsViewModel.Refresh();
+        }
 
         private void OnTaskSelected(TaskItem task)
         {
@@ -53,3 +57,5 @@ namespace Taskish.ViewModels
         }
     }
 }
+
+
