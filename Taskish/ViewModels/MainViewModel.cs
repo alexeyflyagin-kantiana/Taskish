@@ -7,6 +7,7 @@ namespace Taskish.ViewModels
     public class MainViewModel : BaseViewModel
     {
         private readonly TaskService _taskService;
+        private readonly StatisticsViewModel _statisticsViewModel;
 
         public TaskListViewModel TaskListViewModel { get; }
         public RelayCommand CloseDialogCommand { get; }
@@ -25,9 +26,12 @@ namespace Taskish.ViewModels
             set => SetProperty(ref _currentDialog, value);
         }
 
-        public MainViewModel(TaskService taskService)
+        public MainViewModel(TaskService taskService, StatisticsService statisticsService)
         {
             _taskService = taskService;
+            _statisticsViewModel = new StatisticsViewModel(statisticsService);
+            _currentRightView = _statisticsViewModel;
+
             CloseDialogCommand = new RelayCommand(() => CurrentDialog = null, () => CurrentDialog != null);
             TaskListViewModel = new TaskListViewModel(taskService, OnTaskSelected, OnRefresh);
         }
