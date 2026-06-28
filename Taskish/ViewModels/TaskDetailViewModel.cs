@@ -22,6 +22,7 @@ namespace Taskish.ViewModels
                 if (_task.Title == value) return;
                 _task.Title = value;
                 _taskService.Update(_task);
+                _onRefresh();
             }
         }
 
@@ -33,9 +34,9 @@ namespace Taskish.ViewModels
                 if (_task.Description == value) return;
                 _task.Description = value;
                 _taskService.Update(_task);
+                _onRefresh();
             }
         }
-
         public int StoryPoints
         {
             get => _task.StoryPoints;
@@ -44,13 +45,12 @@ namespace Taskish.ViewModels
                 if (_task.StoryPoints == value) return;
                 _task.StoryPoints = value;
                 _taskService.Update(_task);
+                _onRefresh();
             }
         }
-
         public bool IsCompleted => _task.IsCompleted;
         public DateTime CreatedAt => _task.CreatedAt;
         public DateTime? CompletedAt => _task.CompletedAt;
-
         public DateTime? Deadline
         {
             get => _task.Deadline;
@@ -59,6 +59,7 @@ namespace Taskish.ViewModels
                 if (_task.Deadline == value) return;
                 _task.Deadline = value;
                 _taskService.Update(_task);
+                _onRefresh();
             }
         }
 
@@ -93,8 +94,11 @@ namespace Taskish.ViewModels
         private void Delete()
         {
             _taskService.Delete(_task.Id);
+            _onRefresh();
             _onDelete(_task);
             _onClose();
         }
     }
 }
+
+
