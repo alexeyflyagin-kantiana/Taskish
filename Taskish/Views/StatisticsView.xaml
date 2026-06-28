@@ -1,0 +1,229 @@
+<UserControl x:Class="Taskish.Views.StatisticsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:Taskish.Controls"
+             xmlns:res="clr-namespace:Taskish.Resources">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.Margin>
+                <Thickness
+                    Left="{StaticResource Spacing16}"
+                    Top="{StaticResource Spacing12}"
+                    Right="{StaticResource Spacing16}"
+                    Bottom="{StaticResource Spacing12}"/>
+            </Grid.Margin>
+            <TextBlock
+                Text="{x:Static res:Strings.Statistics}"
+                Style="{StaticResource TitleMedium}"
+                Foreground="{StaticResource OnSurfaceVariantBrush}"
+                HorizontalAlignment="Center"/>
+        </Grid>
+        <ScrollViewer
+            Grid.Row="1"
+            VerticalScrollBarVisibility="Auto"
+            HorizontalScrollBarVisibility="Disabled">
+            <StackPanel>
+                <StackPanel.Margin>
+                    <Thickness
+                        Left="{StaticResource Spacing20}"
+                        Right="{StaticResource Spacing20}"
+                        Bottom="{StaticResource Spacing20}"/>
+                </StackPanel.Margin>
+
+                <!-- Сегодня -->
+                <TextBlock
+                    Text="{x:Static res:Strings.Today}"
+                    Style="{StaticResource TitleMedium}"
+                    Foreground="{StaticResource OnSurfaceBrush}">
+                    <TextBlock.Margin>
+                        <Thickness Top="{StaticResource Spacing8}" Bottom="{StaticResource Spacing8}"/>
+                    </TextBlock.Margin>
+                </TextBlock>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Процент дня -->
+                    <Grid Grid.Column="0" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" Width="8">
+                            <Grid.Margin>
+                                <Thickness Right="{StaticResource Spacing8}"/>
+                            </Grid.Margin>
+                            <Border CornerRadius="{StaticResource Corner4}" Background="{StaticResource OnSurfaceBrush10}"/>
+                            <Border CornerRadius="{StaticResource Corner4}" Background="{Binding TodayBrush}"/>
+                        </Grid>
+                        <TextBlock
+                    Grid.Column="1"
+                    Text="{Binding TodayPercent}"
+                    Style="{StaticResource HeadlineMedium}"
+                    Foreground="{StaticResource OnSurfaceBrush}"
+                    ToolTip="Процент от средней сложности за последние 30 недель без учёта текущего дня"/>
+                    </Grid>
+
+                    <!-- Общая продуктивность -->
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <TextBlock
+                    Text="{x:Static res:Strings.OverallProductivity}"
+                    Style="{StaticResource LabelMedium}"
+                    Foreground="{StaticResource OnSurfaceVariantBrush}"
+                    HorizontalAlignment="Right"/>
+                        <controls:Badge
+                    IconData="{StaticResource WeightSmallIcon}"
+                    Text="{Binding TodayProductivity}"
+                    HorizontalAlignment="Right"
+                    ToolTip="сложность сегодня / средняя сложность&#x0a;(Средняя сложность за последние 30 недель без учёта текущего дня)">
+                            <controls:Badge.Margin>
+                                <Thickness Top="{StaticResource Spacing4}"/>
+                            </controls:Badge.Margin>
+                        </controls:Badge>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Тепловая карта -->
+                <TextBlock
+            Text="{Binding PeriodLabel}"
+            Style="{StaticResource TitleMedium}"
+            Foreground="{StaticResource OnSurfaceBrush}">
+                    <TextBlock.Margin>
+                        <Thickness Top="{StaticResource Spacing24}" Bottom="{StaticResource Spacing8}"/>
+                    </TextBlock.Margin>
+                </TextBlock>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="24"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="16"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Подписи месяцев -->
+                    <Canvas x:Name="MonthLabelsCanvas" Grid.Column="1" Grid.Row="0"/>
+
+                    <!-- Подписи дней -->
+                    <Canvas Grid.Column="0" Grid.Row="1" Width="24">
+                        <TextBlock
+                    Canvas.Top="0"
+                    Text="Пн"
+                    Style="{StaticResource LabelSmall}"
+                    Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                        <TextBlock
+                    Canvas.Top="24"
+                    Text="Ср"
+                    Style="{StaticResource LabelSmall}"
+                    Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                        <TextBlock
+                    Canvas.Top="48"
+                    Text="Пт"
+                    Style="{StaticResource LabelSmall}"
+                    Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                        <TextBlock
+                    Canvas.Top="72"
+                    Text="Вс"
+                    Style="{StaticResource LabelSmall}"
+                    Foreground="{StaticResource OnSurfaceVariantBrush}"/>
+                    </Canvas>
+
+                    <!-- Тепловая карта -->
+                    <controls:HeatMap
+                x:Name="myHeatMap"
+                Grid.Column="1"
+                Grid.Row="1"
+                CellSize="10"
+                CellGap="2"/>
+                </Grid>
+
+                <!-- Подвал -->
+                <Grid>
+                    <Grid.Margin>
+                        <Thickness Left="24" Top="{StaticResource Spacing8}"/>
+                    </Grid.Margin>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Ср. и Макс. -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock
+                    Text="{x:Static res:Strings.Average}"
+                    Style="{StaticResource LabelMedium}"
+                    Foreground="{StaticResource OnSurfaceVariantBrush}"
+                    VerticalAlignment="Center"/>
+                        <controls:Badge IconData="{StaticResource WeightSmallIcon}" Text="{Binding DailyAverage}"
+                               ToolTip="Среднее за период без учёта текущего дня">
+                            <controls:Badge.Margin>
+                                <Thickness Left="{StaticResource Spacing4}" Right="{StaticResource Spacing16}"/>
+                            </controls:Badge.Margin>
+                        </controls:Badge>
+
+                        <TextBlock
+                    Text="{x:Static res:Strings.Maximum}"
+                    Style="{StaticResource LabelMedium}"
+                    Foreground="{StaticResource OnSurfaceVariantBrush}"
+                    VerticalAlignment="Center"/>
+                        <controls:Badge
+                    IconData="{StaticResource WeightSmallIcon}"
+                    Text="{Binding DailyMax}"
+                    Background="{StaticResource PrimaryBrush}"
+                    Foreground="{StaticResource OnPrimaryBrush}">
+                            <controls:Badge.Margin>
+                                <Thickness Left="{StaticResource Spacing4}"/>
+                            </controls:Badge.Margin>
+                        </controls:Badge>
+                    </StackPanel>
+
+                    <!-- Легенда продуктивности -->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock
+                    Text="{x:Static res:Strings.Productivity}"
+                    Style="{StaticResource LabelMedium}"
+                    Foreground="{StaticResource OnSurfaceVariantBrush}"
+                    VerticalAlignment="Center">
+                            <TextBlock.Margin>
+                                <Thickness Right="{StaticResource Spacing8}"/>
+                            </TextBlock.Margin>
+                        </TextBlock>
+                        <Grid Width="10" Height="10" VerticalAlignment="Center">
+                            <Border CornerRadius="{StaticResource Corner2}" Background="{StaticResource OnSurfaceBrush10}"/>
+                            <Border CornerRadius="{StaticResource Corner2}" Background="{StaticResource ContributionsMin}"/>
+                        </Grid>
+                        <Grid Width="10" Height="10" VerticalAlignment="Center" Margin="2,0,0,0">
+                            <Border CornerRadius="{StaticResource Corner2}" Background="{StaticResource OnSurfaceBrush10}"/>
+                            <Border CornerRadius="{StaticResource Corner2}" Background="{StaticResource Contributions25}"/>
+                        </Grid>
+                        <Grid Width="10" Height="10" VerticalAlignment="Center" Margin="2,0,0,0">
+                            <Border CornerRadius="{StaticResource Corner2}" Background="{StaticResource OnSurfaceBrush10}"/>
+                            <Border CornerRadius="{StaticResource Corner2}" Background="{StaticResource Contributions50}"/>
+                        </Grid>
+                        <Grid Width="10" Height="10" VerticalAlignment="Center" Margin="2,0,0,0">
+                            <Border CornerRadius="{StaticResource Corner2}" Background="{StaticResource OnSurfaceBrush10}"/>
+                            <Border CornerRadius="{StaticResource Corner2}" Background="{StaticResource Contributions75}"/>
+                        </Grid>
+                        <Grid Width="10" Height="10" VerticalAlignment="Center" Margin="2,0,0,0">
+                            <Border CornerRadius="{StaticResource Corner2}" Background="{StaticResource OnSurfaceBrush10}"/>
+                            <Border CornerRadius="{StaticResource Corner2}" Background="{StaticResource Contributions100}"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+
+</UserControl>
