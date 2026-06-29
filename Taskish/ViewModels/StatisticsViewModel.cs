@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
 using Taskish.Controls;
+using Taskish.Models;
 using Taskish.Services;
 
 namespace Taskish.ViewModels
@@ -69,6 +70,13 @@ namespace Taskish.ViewModels
             private set => SetProperty(ref _todayBrush, value);
         }
 
+        private IReadOnlyList<ScatterPlotPointData> _scatterPoints = [];
+        public IReadOnlyList<ScatterPlotPointData> ScatterPoints
+        {
+            get => _scatterPoints;
+            private set => SetProperty(ref _scatterPoints, value);
+        }
+
         public StatisticsViewModel(StatisticsService statisticsService)
         {
             _statisticsService = statisticsService;
@@ -115,6 +123,16 @@ namespace Taskish.ViewModels
             TodayPercent = DailyAverage > 0
                 ? $"{(double)todayPoints / DailyAverage * 100:F0}%"
                 : "0%";
+
+            var completed = _statisticsService.GetCompletedTasksInPeriod(NumWeeks);
+            ScatterPoints = completed.Select(t =>
+            {
+                var days = (t.CompletedAt!.Value - t.CreatedAt).TotalDays;
+                var category = t.Deadline.HasValue
+                    ? (t.CompletedAt.Value <= t.Deadline.Value ? ScatterPointCategory.OnTime : ScatterPointCategory.Late)
+                    : ScatterPointCategory.NoDeadline;
+                return new ScatterPlotPointData { StoryPoints = t.StoryPoints, DaysToComplete = days, Category = category };
+            }).ToList();
         }
 
         private static IReadOnlyList<(int WeekIndex, string Text)> BuildMonthLabels(IList<DateOnly> dates)

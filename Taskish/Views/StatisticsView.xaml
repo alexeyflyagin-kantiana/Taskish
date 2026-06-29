@@ -222,6 +222,32 @@
                         </Grid>
                     </StackPanel>
                 </Grid>
+
+                <!-- Scatter Plot -->
+                <TextBlock
+                    Text="Сложность vs время выполнения"
+                    Style="{StaticResource TitleMedium}"
+                    Foreground="{StaticResource OnSurfaceBrush}">
+                    <TextBlock.Margin>
+                        <Thickness Top="{StaticResource Spacing24}" Bottom="{StaticResource Spacing8}"/>
+                    </TextBlock.Margin>
+                </TextBlock>
+
+                <controls:ScatterPlot
+                    Points="{Binding ScatterPoints}"
+                    Margin="24,0,0,0"/>
+
+                <Border Height="{StaticResource Spacing24}"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Width="8" Height="8" Fill="{StaticResource PrimaryBrush}" VerticalAlignment="Center"/>
+                    <TextBlock Text="В срок" Style="{StaticResource LabelMedium}" Foreground="{StaticResource OnSurfaceVariantBrush}" VerticalAlignment="Center" Margin="4,0,16,0"/>
+                    <Ellipse Width="8" Height="8" Fill="{StaticResource ErrorBrush}" VerticalAlignment="Center"/>
+                    <TextBlock Text="Просрочено" Style="{StaticResource LabelMedium}" Foreground="{StaticResource OnSurfaceVariantBrush}" VerticalAlignment="Center" Margin="4,0,16,0"/>
+                    <Ellipse Width="8" Height="8" Fill="{StaticResource OnSurfaceVariantBrush}" VerticalAlignment="Center"/>
+                    <TextBlock Text="Без дедлайна" Style="{StaticResource LabelMedium}" Foreground="{StaticResource OnSurfaceVariantBrush}" VerticalAlignment="Center" Margin="4,0,0,0"/>
+                </StackPanel>
+
             </StackPanel>
         </ScrollViewer>
     </Grid>
