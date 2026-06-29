@@ -77,6 +77,27 @@ namespace Taskish.ViewModels
             private set => SetProperty(ref _scatterPoints, value);
         }
 
+        private int _onTimeCount;
+        public int OnTimeCount
+        {
+            get => _onTimeCount;
+            private set => SetProperty(ref _onTimeCount, value);
+        }
+
+        private int _lateCount;
+        public int LateCount
+        {
+            get => _lateCount;
+            private set => SetProperty(ref _lateCount, value);
+        }
+
+        private int _noDeadlineCount;
+        public int NoDeadlineCount
+        {
+            get => _noDeadlineCount;
+            private set => SetProperty(ref _noDeadlineCount, value);
+        }
+
         public StatisticsViewModel(StatisticsService statisticsService)
         {
             _statisticsService = statisticsService;
@@ -133,6 +154,10 @@ namespace Taskish.ViewModels
                     : ScatterPointCategory.NoDeadline;
                 return new ScatterPlotPointData { StoryPoints = t.StoryPoints, DaysToComplete = days, Category = category };
             }).ToList();
+
+            OnTimeCount     = ScatterPoints.Count(p => p.Category == ScatterPointCategory.OnTime);
+            LateCount       = ScatterPoints.Count(p => p.Category == ScatterPointCategory.Late);
+            NoDeadlineCount = ScatterPoints.Count(p => p.Category == ScatterPointCategory.NoDeadline);
         }
 
         private static IReadOnlyList<(int WeekIndex, string Text)> BuildMonthLabels(IList<DateOnly> dates)
