@@ -20,6 +20,16 @@ namespace Taskish.Controls
             set => SetValue(PointsProperty, value);
         }
 
+        private static double NiceMax(double rawMax)
+        {
+            if (rawMax <= 0) return 4;
+            double[] steps = [0.5, 1, 2, 5, 10, 15, 20, 30, 50, 100, 150, 200, 365];
+            foreach (var s in steps)
+                if (s * 4 > rawMax * 1.1)
+                    return s * 4;
+            return Math.Ceiling(rawMax * 1.2 / 50) * 50;
+        }
+
         protected override Size MeasureOverride(Size availableSize)
             => new(double.IsInfinity(availableSize.Width) ? 0 : availableSize.Width, 200);
 
@@ -41,7 +51,8 @@ namespace Taskish.Controls
             if (plotW <= 0 || plotH <= 0) return;
 
             double maxX = Math.Max(points.Max(p => p.StoryPoints) + 1.0, 2);
-            double maxY = Math.Max(points.Max(p => p.DaysToComplete) * 1.2, 4);
+            double rawMaxY = points.Max(p => p.DaysToComplete);
+            double maxY = NiceMax(rawMaxY);
 
             double ToCanvasX(double sp) => marginLeft + sp / maxX * plotW;
             double ToCanvasY(double d) => marginTop + plotH * (1.0 - d / maxY);
@@ -60,23 +71,27 @@ namespace Taskish.Controls
             double dpi = VisualTreeHelper.GetDpi(this).PixelsPerDip;
 
             // Y: gridlines + labels
+            string yFmt = maxY < 5 ? "F1" : "F0";
             for (int i = 0; i <= 4; i++)
             {
                 double val = maxY * i / 4.0;
                 double cy = ToCanvasY(val);
                 dc.DrawLine(gridPen, new Point(marginLeft, cy), new Point(w - marginRight, cy));
 
-                var ft = new FormattedText(val.ToString("F0", CultureInfo.InvariantCulture),
+                var ft = new FormattedText(val.ToString(yFmt, CultureInfo.InvariantCulture),
                     CultureInfo.InvariantCulture, FlowDirection.LeftToRight, typeface, 10, axisBrush, dpi);
                 dc.DrawText(ft, new Point(marginLeft - ft.Width - 4, cy - ft.Height / 2));
             }
 
-            // X: label per unique SP value
-            var xValues = points.Select(p => p.StoryPoints).Distinct().OrderBy(v => v).ToList();
-            foreach (var val in xValues)
+            // X: evenly spaced ticks (max 7)
+            int xSteps = 6;
+            double xStep = maxX / xSteps;
+            for (int i = 0; i <= xSteps; i++)
             {
+                double val = Math.Round(xStep * i);
+                if (val == 0) continue;
                 double cx = ToCanvasX(val);
-                var ft = new FormattedText(val.ToString(), CultureInfo.InvariantCulture,
+                var ft = new FormattedText(((int)val).ToString(), CultureInfo.InvariantCulture,
                     FlowDirection.LeftToRight, typeface, 10, axisBrush, dpi);
                 dc.DrawLine(gridPen, new Point(cx, marginTop + plotH), new Point(cx, marginTop + plotH + 3));
                 dc.DrawText(ft, new Point(cx - ft.Width / 2, marginTop + plotH + 5));
