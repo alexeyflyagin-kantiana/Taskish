@@ -138,7 +138,7 @@ namespace Taskish.ViewModels
 
             var pastActiveDays = data.Days.Where(d => d.Date < today && d.TotalStoryPoints > 0).ToList();
             DailyMax = data.DailyRecord;
-            DailyAverage = pastActiveDays.Count > 0 ? (int)Math.Round(pastActiveDays.Average(d => d.TotalStoryPoints)) : 0;
+            DailyAverage = pastActiveDays.Count > 0 ? Math.Max(1, (int)Math.Round(pastActiveDays.Average(d => d.TotalStoryPoints))) : 1;
 
             TodayProductivity = $"{todayPoints} / {DailyAverage}";
             TodayPercent = DailyAverage > 0
@@ -206,3 +206,5 @@ namespace Taskish.ViewModels
             => Application.Current.TryFindResource(key) as Brush ?? Brushes.Transparent;
     }
 }
+
+
