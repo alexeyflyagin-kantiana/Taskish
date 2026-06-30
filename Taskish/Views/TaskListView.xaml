@@ -57,6 +57,29 @@
                 Command="{Binding AddTaskCommand}"/>
         </Grid>
 
+        <TextBlock
+            Grid.Row="1"
+            Text="Пока что пусто — создайте первую задачу"
+            Foreground="{StaticResource OnSurfaceVariantBrush}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            TextWrapping="Wrap"
+            TextAlignment="Center">
+            <TextBlock.Margin>
+                <Thickness Left="{StaticResource Spacing24}" Right="{StaticResource Spacing24}"/>
+            </TextBlock.Margin>
+            <TextBlock.Style>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource LabelMedium}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsEmpty}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
         <controls:TaskListBox
             Grid.Row="1"
             ItemsSource="{Binding TasksView}"
@@ -107,4 +130,5 @@
         </controls:TaskListBox>
     </Grid>
 </UserControl>
+
 

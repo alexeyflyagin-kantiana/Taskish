@@ -19,6 +19,7 @@ namespace Taskish.ViewModels
         public ListCollectionView TasksView { get; }
 
         public string TaskCounter => $"({_tasks.Count(t => !t.IsCompleted)}/{_tasks.Count})";
+        public bool IsEmpty => _tasks.Count == 0;
         public RelayCommand AddTaskCommand { get; }
         public RelayCommand<TaskItem> ToggleCompleteCommand { get; }
         public RelayCommand<TaskItem> TaskSelectedCommand { get; }
@@ -34,7 +35,7 @@ namespace Taskish.ViewModels
                 CustomSort = new TaskDeadlineComparer()
             };
             TasksView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(TaskItem.IsCompleted)));
-            _tasks.CollectionChanged += (_, _) => OnPropertyChanged(nameof(TaskCounter));
+            _tasks.CollectionChanged += (_, _) => { OnPropertyChanged(nameof(TaskCounter)); OnPropertyChanged(nameof(IsEmpty)); };
 
             AddTaskCommand = new RelayCommand(AddTask);
             ToggleCompleteCommand = new RelayCommand<TaskItem>(ToggleComplete);
@@ -115,4 +116,5 @@ namespace Taskish.ViewModels
         }
     }
 }
+
 
