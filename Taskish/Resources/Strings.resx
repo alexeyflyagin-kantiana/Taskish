@@ -145,7 +145,7 @@
     <value>Описание:</value>
   </data>
   <data name="Deadline_PropertyName" xml:space="preserve">
-    <value>Крайний срок:</value>
+    <value>Дедлайн:</value>
   </data>
   <data name="NotAllowedToBeEdited" xml:space="preserve">
     <value>Недоступно для редактирования!</value>

@@ -6,7 +6,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Icon.ico"/>
+    <Resource Include="..\Fonts\Inter\Inter-VariableFont_opsz,wght.ttf" Link="Fonts\Inter\Inter-VariableFont_opsz,wght.ttf"/>
+    <Resource Include="..\Fonts\Inter\Inter-Italic-VariableFont_opsz,wght.ttf" Link="Fonts\Inter\Inter-Italic-VariableFont_opsz,wght.ttf"/>
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Resources\Strings.Designer.cs">

@@ -105,7 +105,8 @@
                                             x:Name="deadlineBadge"
                                             Grid.Column="2"
                                             IconData="{StaticResource CalendarSmallIcon}"
-                                            Text="{Binding DeadlineText, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                            Text="{Binding DeadlineText, RelativeSource={RelativeSource TemplatedParent}}"
+                                            ToolTip="{Binding OverdueText, RelativeSource={RelativeSource TemplatedParent}}"/>
                                     </Grid>
                                 </Grid>
                             </Grid>

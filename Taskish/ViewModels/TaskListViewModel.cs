@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -19,7 +20,33 @@ namespace Taskish.ViewModels
         public ListCollectionView TasksView { get; }
 
         public string TaskCounter => $"({_tasks.Count(t => !t.IsCompleted)}/{_tasks.Count})";
-        public bool IsEmpty => _tasks.Count == 0;
+        public bool IsEmpty => _tasks.Count == 0 && !_isSearchActive;
+
+        private bool _isSearchActive;
+        public bool IsSearchActive
+        {
+            get => _isSearchActive;
+            private set { _isSearchActive = value; OnPropertyChanged(); OnPropertyChanged(nameof(IsEmpty)); }
+        }
+
+        private string _searchQuery = string.Empty;
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set
+            {
+                _searchQuery = value;
+                OnPropertyChanged();
+                TasksView.Refresh();
+                OnPropertyChanged(nameof(IsSearchNoResults));
+            }
+        }
+
+        public bool IsSearchNoResults =>
+            _isSearchActive && !string.IsNullOrWhiteSpace(_searchQuery) && TasksView.Count == 0;
+
+        public RelayCommand SearchCommand { get; }
+        public RelayCommand CloseSearchCommand { get; }
         public RelayCommand AddTaskCommand { get; }
         public RelayCommand<TaskItem> ToggleCompleteCommand { get; }
         public RelayCommand<TaskItem> TaskSelectedCommand { get; }
@@ -32,11 +59,18 @@ namespace Taskish.ViewModels
 
             TasksView = new ListCollectionView(_tasks)
             {
-                CustomSort = new TaskDeadlineComparer()
+                CustomSort = new TaskDeadlineComparer(),
+                Filter = FilterTask
             };
             TasksView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(TaskItem.IsCompleted)));
-            _tasks.CollectionChanged += (_, _) => { OnPropertyChanged(nameof(TaskCounter)); OnPropertyChanged(nameof(IsEmpty)); };
+            _tasks.CollectionChanged += (_, _) => { OnPropertyChanged(nameof(TaskCounter)); OnPropertyChanged(nameof(IsEmpty)); OnPropertyChanged(nameof(IsSearchNoResults)); };
 
+            SearchCommand = new RelayCommand(() => { IsSearchActive = true; });
+            CloseSearchCommand = new RelayCommand(() =>
+            {
+                IsSearchActive = false;
+                SearchQuery = string.Empty;
+            });
             AddTaskCommand = new RelayCommand(AddTask);
             ToggleCompleteCommand = new RelayCommand<TaskItem>(ToggleComplete);
             TaskSelectedCommand = new RelayCommand<TaskItem>(t => _onTaskSelected(t!));
@@ -44,6 +78,15 @@ namespace Taskish.ViewModels
             TaskCard.MinuteTick += (_, _) => TasksView.Refresh();
 
             LoadTasks();
+        }
+
+        private bool FilterTask(object obj)
+        {
+            if (string.IsNullOrWhiteSpace(_searchQuery)) return true;
+            if (obj is not TaskItem task) return false;
+            var q = _searchQuery.Trim();
+            return (task.Title?.Contains(q, StringComparison.OrdinalIgnoreCase) ?? false)
+                || (task.Description?.Contains(q, StringComparison.OrdinalIgnoreCase) ?? false);
         }
 
         private void ToggleComplete(TaskItem task)

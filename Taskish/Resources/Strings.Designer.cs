@@ -133,7 +133,7 @@ namespace Taskish.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Крайний срок:.
+        ///   Looks up a localized string similar to Дедлайн:.
         /// </summary>
         public static string Deadline_PropertyName {
             get {

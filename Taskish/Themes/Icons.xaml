@@ -32,5 +32,7 @@
         <ResourceDictionary Source="/Resources/Icons/Weight.xaml"/>
         <ResourceDictionary Source="/Resources/Icons/Edit.xaml"/>
         <ResourceDictionary Source="/Resources/Icons/Info.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Back.xaml"/>
+        <ResourceDictionary Source="/Resources/Icons/Search.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

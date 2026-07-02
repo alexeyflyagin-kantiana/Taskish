@@ -57,6 +57,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0" Width="8">
                             <Grid.Margin>
@@ -66,29 +67,48 @@
                             <Border CornerRadius="{StaticResource Corner4}" Background="{Binding TodayBrush}"/>
                         </Grid>
                         <TextBlock
-                    Grid.Column="1"
-                    Text="{Binding TodayPercent}"
-                    Style="{StaticResource HeadlineMedium}"
-                    Foreground="{StaticResource OnSurfaceBrush}"
-                    ToolTip="Процент от средней сложности за последние 30 недель без учёта текущего дня"/>
+                            Grid.Column="1"
+                            Text="{Binding TodayPercent}"
+                            Style="{StaticResource HeadlineMedium}"
+                            Foreground="{StaticResource OnSurfaceBrush}"/>
+
+                        <Viewbox Grid.Column="3" Width="14" Height="14" VerticalAlignment="Center"
+                                     ToolTip="Процент от средней сложности за последние 30 недель без учёта текущего дня">
+                            <Canvas Width="14" Height="14" Background="Transparent">
+                                <Path Data="{StaticResource InfoIcon}" Fill="{StaticResource OnSurfaceBrush}" Opacity="{StaticResource Opacity-40}"/>
+                            </Canvas>
+                            <Viewbox.Margin>
+                                <Thickness Left="{StaticResource Spacing4}"/>
+                            </Viewbox.Margin>
+                        </Viewbox>
                     </Grid>
 
                     <!-- Общая продуктивность -->
                     <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <TextBlock
-                    Text="{x:Static res:Strings.OverallProductivity}"
-                    Style="{StaticResource LabelMedium}"
-                    Foreground="{StaticResource OnSurfaceVariantBrush}"
-                    HorizontalAlignment="Right"/>
-                        <controls:Badge
-                    IconData="{StaticResource WeightSmallIcon}"
-                    Text="{Binding TodayProductivity}"
-                    HorizontalAlignment="Right"
-                    ToolTip="сложность сегодня / средняя сложность&#x0a;(Средняя сложность за последние 30 недель без учёта текущего дня)">
-                            <controls:Badge.Margin>
+                            Text="{x:Static res:Strings.OverallProductivity}"
+                            Style="{StaticResource LabelMedium}"
+                            Foreground="{StaticResource OnSurfaceVariantBrush}"
+                            HorizontalAlignment="Right"/>
+                        <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
+                            <StackPanel.Margin>
                                 <Thickness Top="{StaticResource Spacing4}"/>
-                            </controls:Badge.Margin>
-                        </controls:Badge>
+                            </StackPanel.Margin>
+                            <controls:Badge
+                                IconData="{StaticResource WeightSmallIcon}"
+                                Text="{Binding TodayProductivity}"
+                                HorizontalAlignment="Right">
+                            </controls:Badge>
+                            <Viewbox Width="14" Height="14" VerticalAlignment="Center"
+                                     ToolTip="сложность сегодня / средняя сложность&#x0a;(Средняя сложность за последние 30 недель без учёта текущего дня)">
+                                <Canvas Width="14" Height="14" Background="Transparent">
+                                    <Path Data="{StaticResource InfoIcon}" Fill="{StaticResource OnSurfaceBrush}" Opacity="{StaticResource Opacity-40}"/>
+                                </Canvas>
+                                <Viewbox.Margin>
+                                    <Thickness Left="{StaticResource Spacing4}"/>
+                                </Viewbox.Margin>
+                            </Viewbox>
+                        </StackPanel>
                     </StackPanel>
                 </Grid>
 
@@ -162,16 +182,25 @@
                     <!-- Ср. и Макс. -->
                     <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
                         <TextBlock
-                    Text="{x:Static res:Strings.Average}"
-                    Style="{StaticResource LabelMedium}"
-                    Foreground="{StaticResource OnSurfaceVariantBrush}"
-                    VerticalAlignment="Center"/>
-                        <controls:Badge IconData="{StaticResource WeightSmallIcon}" Text="{Binding DailyAverage}"
-                               ToolTip="Среднее за период без учёта текущего дня">
+                            Text="{x:Static res:Strings.Average}"
+                            Style="{StaticResource LabelMedium}"
+                            Foreground="{StaticResource OnSurfaceVariantBrush}"
+                            VerticalAlignment="Center"/>
+                        <controls:Badge IconData="{StaticResource WeightSmallIcon}" Text="{Binding DailyAverage}">
                             <controls:Badge.Margin>
-                                <Thickness Left="{StaticResource Spacing4}" Right="{StaticResource Spacing16}"/>
+                                <Thickness Left="{StaticResource Spacing4}"/>
                             </controls:Badge.Margin>
                         </controls:Badge>
+
+                        <Viewbox Grid.Column="3" Width="14" Height="14" VerticalAlignment="Center"
+                                     ToolTip="Среднее за период без учёта текущего дня">
+                            <Canvas Width="14" Height="14" Background="Transparent">
+                                <Path Data="{StaticResource InfoIcon}" Fill="{StaticResource OnSurfaceBrush}" Opacity="{StaticResource Opacity-40}"/>
+                            </Canvas>
+                            <Viewbox.Margin>
+                                <Thickness Left="{StaticResource Spacing4}" Right="{StaticResource Spacing16}"/>
+                            </Viewbox.Margin>
+                        </Viewbox>
 
                         <TextBlock
                     Text="{x:Static res:Strings.Maximum}"
@@ -179,10 +208,10 @@
                     Foreground="{StaticResource OnSurfaceVariantBrush}"
                     VerticalAlignment="Center"/>
                         <controls:Badge
-                    IconData="{StaticResource WeightSmallIcon}"
-                    Text="{Binding DailyMax}"
-                    Background="{StaticResource PrimaryBrush}"
-                    Foreground="{StaticResource OnPrimaryBrush}">
+                            IconData="{StaticResource WeightSmallIcon}"
+                            Text="{Binding DailyMax}"
+                            Background="{StaticResource PrimaryBrush}"
+                            Foreground="{StaticResource OnPrimaryBrush}">
                             <controls:Badge.Margin>
                                 <Thickness Left="{StaticResource Spacing4}"/>
                             </controls:Badge.Margin>

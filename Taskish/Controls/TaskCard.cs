@@ -119,6 +119,16 @@ namespace Taskish.Controls
             private set => SetValue(DeadlineTextProperty, value);
         }
 
+        public static readonly DependencyProperty OverdueTextProperty =
+            DependencyProperty.Register(nameof(OverdueText), typeof(string), typeof(TaskCard),
+                new PropertyMetadata(null));
+
+        public string? OverdueText
+        {
+            get => (string?)GetValue(OverdueTextProperty);
+            private set => SetValue(OverdueTextProperty, value);
+        }
+
         private static void OnDeadlineInputChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is TaskCard card) card.UpdateDeadlineState();
@@ -130,6 +140,7 @@ namespace Taskish.Controls
             {
                 DeadlineState = DeadlineState.Hidden;
                 DeadlineText = string.Empty;
+                OverdueText = null;
                 return;
             }
 
@@ -145,6 +156,39 @@ namespace Taskish.Controls
                 (_, true)      => DeadlineState.Overdue,
                 _              => DeadlineState.Normal
             };
+
+            if (isOverdue)
+            {
+                DateTime reference = IsCompleted && CompletedAt.HasValue ? CompletedAt.Value : DateTime.Now;
+                TimeSpan overdue = reference - Deadline.Value;
+                OverdueText = FormatOverdue(overdue);
+            }
+            else
+            {
+                OverdueText = null;
+            }
+        }
+
+        private static string FormatOverdue(TimeSpan span)
+        {
+            if (span.TotalMinutes < 1)
+                return "Просрочено менее минуты назад";
+
+            if (span.TotalHours < 1)
+                return $"Просрочено на {(int)span.TotalMinutes} мин.";
+
+            if (span.TotalDays < 1)
+                return $"Просрочено на {(int)span.TotalHours} ч. {span.Minutes} мин.";
+
+            int days = (int)span.TotalDays;
+            int hours = span.Hours;
+            string dayStr = days % 10 == 1 && days % 100 != 11 ? "день"
+                : days % 10 is 2 or 3 or 4 && days % 100 is not (12 or 13 or 14) ? "дня"
+                : "дней";
+
+            return hours > 0
+                ? $"Просрочено на {days} {dayStr} {hours} ч."
+                : $"Просрочено на {days} {dayStr}";
         }
     }
 }

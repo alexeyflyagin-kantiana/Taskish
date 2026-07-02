@@ -10,7 +10,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- Обычная шапка -->
         <Grid
+            x:Name="normalHeader"
             Grid.Row="0">
             <Grid.Margin>
                 <Thickness
@@ -21,26 +23,26 @@
             </Grid.Margin>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="{StaticResource Gap24}"/>
+                <ColumnDefinition Width="{StaticResource Gap8}"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{StaticResource Gap4}"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Grid
-                Grid.Column="0">
+            <Grid Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="{StaticResource Gap8}"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="{StaticResource Gap4}"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-            
+
                 <TextBlock
                     Grid.Column="1"
                     Style="{StaticResource TitleMedium}"
                     Foreground="{StaticResource OnSurfaceBrush}"
                     Text="{x:Static res:Strings.AllTasks}"
                     VerticalAlignment="Center"/>
-
 
                 <TextBlock
                     Grid.Column="3"
@@ -50,12 +52,50 @@
                     VerticalAlignment="Center"/>
             </Grid>
 
-
             <controls:IconButton
                 Grid.Column="2"
+                IconData="{StaticResource SearchIcon}"
+                Command="{Binding SearchCommand}"/>
+
+            <controls:IconButton
+                Grid.Column="4"
                 IconData="{StaticResource AddIcon}"
                 Command="{Binding AddTaskCommand}"/>
+
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsSearchActive}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
         </Grid>
+
+        <!-- Поисковая шапка -->
+        <local:SearchBar
+            Grid.Row="0"
+            Text="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            BackCommand="{Binding CloseSearchCommand}">
+            <local:SearchBar.Margin>
+                <Thickness
+                    Left="{StaticResource Spacing8}"
+                    Top="{StaticResource Spacing8}"
+                    Right="{StaticResource Spacing8}"
+                    Bottom="{StaticResource Spacing8}"/>
+            </local:SearchBar.Margin>
+            <local:SearchBar.Style>
+                <Style TargetType="local:SearchBar">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsSearchActive}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </local:SearchBar.Style>
+        </local:SearchBar>
 
         <TextBlock
             Grid.Row="1"
@@ -73,6 +113,24 @@
                     <Setter Property="Visibility" Value="Collapsed"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsEmpty}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <TextBlock
+            Grid.Row="1"
+            Text="Ничего не найдено"
+            Foreground="{StaticResource OnSurfaceVariantBrush}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource LabelMedium}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsSearchNoResults}" Value="True">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
                     </Style.Triggers>

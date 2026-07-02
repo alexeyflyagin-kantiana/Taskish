@@ -5,7 +5,7 @@
     <Style TargetType="local:DateTimePropertyField">
         <Setter Property="Text" Value=""/>
         <Setter Property="Foreground" Value="{StaticResource OnSurfaceBrush}"/>
-        <Setter Property="FontFamily" Value="Inter"/>
+        <Setter Property="FontFamily" Value="pack://application:,,,/Fonts/Inter/#Inter"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="ErrorIconData" Value="{StaticResource ErrorSmallIcon}"/>

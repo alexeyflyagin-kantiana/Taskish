@@ -38,7 +38,19 @@
                 Grid.Column="2"
                 Style="{StaticResource IconButtonError}"
                 IconData="{StaticResource DeleteIcon}"
-                Command="{Binding DeleteCommand}"/>
+                Click="DeleteButton_Click">
+                <controls:IconButton.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Вы действительно хотите удалить задачу?" IsEnabled="False"/>
+                        <Separator/>
+                        <MenuItem Header="Нет"/>
+                        <MenuItem
+                            Header="Да, удалить!"
+                            Command="{Binding PlacementTarget.DataContext.DeleteCommand,
+                                              RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                    </ContextMenu>
+                </controls:IconButton.ContextMenu>
+            </controls:IconButton>
 
             <controls:IconButton
                 Grid.Column="4"
